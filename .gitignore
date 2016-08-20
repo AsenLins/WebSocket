@@ -1,0 +1,10 @@
+bin/
+obj/
+Scripts/
+app.js
+app.js.map
+app.ts
+ChatServer.njsproj
+package.json
+.ntvs_analysis.dat
+.swp

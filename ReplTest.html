@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        eval("document.body.InnerHTML='<div>我是Asens</div>'");
+        var url = "ws://192.168.1.230:8030/repl";
+        var ws = new WebSocket(url);
+        ws.onmessage = function (message) {
+            console.log("command:"+message.data);
+            var result = eval(message.data);
+            eval(document.body.innerHTML = message.data);
+            ws.send(result);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+﻿<html>
+<head>
+<meta charset="utf-8" />
+</head>
+<body>
+
+
+
+
+
+
+	<div>
+	<input type="text" id="tb_text" />
+	<input type="button" id="btn_send" value="发送自定义数据" />
+    </div>
+	<br/>
+	<div>
+	<textarea style=" width:500px; height:300px;"id="tb_126"  ></textarea>
+	<br/>
+	<input type="button" id="btn_send126" value="发送大于126字节小于216字节的的数据" />
+	</div>
+	<br/>
+	<div>
+	<textarea style=" width:500px; height:300px;"id="tb_216"  ></textarea>
+	<br/>
+	<input type="button" id="btn_send216" value="发送大于216字节的的数据" />
+	</div>
+
+
+	<br/>
+	<br/>
+	<div> <input type="button" id="btn_close" value="关闭连接"> </div>
+
+
+
+	<script>
+
+		var ServerIP="ws://192.168.1.230:8030";
+		
+		    var socket = new WebSocket(ServerIP);
+		    console.log(socket.binaryType);
+		    //socket.binaryType = "arraybuffer";
+		    socket.onopen = function () {
+                
+				alert(ServerIP+"已连接");
+			}
+			socket.onclose=function (e) {
+				alert(ServerIP+"已关闭");
+				console.log(e);
+			}
+			socket.onmessage = function (data) {
+				console.log("copy that:"+data.length);
+				console.log("copy that:" + data);
+				console.log(data.data);
+
+				//alert(data);
+			}
+			console.log("支持webSocket");
+
+		document.getElementById("btn_send").onclick=function () {
+			console.log(document.getElementById("tb_text").value);
+			socket.send(document.getElementById("tb_text").value);
+		}
+		document.getElementById("btn_send126").onclick=function(){
+			console.log(document.getElementById("tb_126").value);
+			socket.send(document.getElementById("tb_126").value);
+
+
+		}	
+
+		document.getElementById("btn_send216").onclick=function(){
+			console.log(document.getElementById("tb_216").value);
+			socket.send(document.getElementById("tb_216").value);
+		}	
+
+
+		document.getElementById("btn_close").onclick=function(){
+			socket.close(1000,"关闭");
+		}			
+
+
+
+
+		window.onload=function(){
+
+		document.getElementById("tb_126").value="2016年奥运会申办进程于2007年5月16日启动，所有国际奥林匹克委员会成员国所管辖范围内城市均可向国际奥委会提出申办意愿";
+		document.getElementById("tb_216").value="第三，在巴西联邦政府的大力支持下，里约的治安自2013以来得到了一定的改善，这让国际奥委会委员们看到了里约申办的诚意。里约在申奥过程中一直受到安全问题的困扰，2008年该城市共发生5000多起刑事案件。但自13年以来，里约市政府加强了治安管理，在巴西联邦政府的支持下，里约犯罪率得到了控制。巴西联邦政府承诺将为里约提供6000万美元的联邦政府基金用于该市改善治安，迎接奥运。巴西司法部长塔尔索·任罗不久前表示，里约在处理公共安全问题方面有很大的进步，特别是成功举办了2007年的泛美运动会，而且每年这里还举办世界上最大的狂欢节，有100多万人参加，里约一直在努力改善治安环境，相信里约申奥成功会让这个海滨城市变得越来越安全。";
+
+		}
+
+
+
+
+
+
+
+	</script>
+</body>
+
+</html>
